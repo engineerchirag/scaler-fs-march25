@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 1 */
+        p {
+            color: red;
+        }
+
+        /* 1001 */
+        p {
+            color: chocolate !important;
+        }
+
+        /* 2 */
+        div p { 
+            color: aqua
+        }
+
+        /* 10 */
+        .para1 {
+            color: blue;
+        }
+
+        /* 100 */
+        #text1 {
+            color: green;
+        }
+
+        /* 11 */
+        .container p {
+            color: purple;
+        }
+
+        /* 110 */
+        .container #text1 {
+            color: yellow;
+        }
+
+        
+        /* 111 */
+        .container p#text1 {
+            color: pink;
+        }
+
+        /* 111 */
+        p.para1#text1 {
+            color: brown;
+        }
+
+        /* 121 */
+        .container p#text1.para1 {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Styling</h1>
+        <p class="para1" id="text1">This is a paragraph</p>
+    </div>
+</body>
+</html>

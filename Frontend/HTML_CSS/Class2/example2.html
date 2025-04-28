@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .header {
+            grid-area: H;
+            background-color: aquamarine;
+        }
+
+        .footer {
+            grid-area: F;
+            background-color: cadetblue;
+        }
+        .sidebar {
+            grid-area: S;
+            background-color: peachpuff;
+        }
+        .content {
+            grid-area: C;
+            background-color: lightpink;
+        }
+        .container {
+            height: 100vh;
+            width: 100vw;
+            background-color: #ccc;
+            display: grid;
+            grid-template-areas:
+                'H H H H H'
+                'S C C C C'
+                'S C C C C'
+                'S C C C C'
+                'S C C C C'
+                'S C C C C'
+                'S C C C C'
+                'S C C C C'
+                'F F F F F'
+            ;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">C</div>
+        <div class="header">H</div>
+        <div class="footer">F</div>
+        <div class="sidebar">S</div>
+    </div>
+</body>
+</html>
