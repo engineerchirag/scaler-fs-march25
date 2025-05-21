@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Machine Coding</h1>
+        <h4 class="teacher">By Chirag Goel</h4>
+        <ul class="skills" data-id="skill-id">
+            <li id="skill1">Machine Coding</li>
+            <li>System Design</li>
+            <li>Data Structures and Algorithms</li>
+        </ul>
+        <h4>Hobbies</h4>
+        <div class="hobbies">
+            <ul>
+                <li>1. Reading</li>
+                <li>2. Writing</li>
+                <li>4. Coding</li>
+            </ul>
+            <button id="newHobbyBtn">Add New Hobby</button>
+        </div>
+    </div>
+</body>
+<script>
+    const bodyRef = document.querySelector('body');
+    const liRef = bodyRef.querySelector('.hobbies ul li:nth-child(3)');
+    const ulRef = bodyRef.querySelector('.hobbies ul');
+    const newHobbyBtnRef = bodyRef.querySelector('#newHobbyBtn');
+
+    function addNewHobby() {
+        const newLiRef = document.createElement('li');
+        newLiRef.innerText = '5. Traveling';
+        newLiRef.style.color = 'red';
+        newLiRef.style.fontSize = '20px';
+        newLiRef.style.fontWeight = 'bold';
+        ulRef.appendChild(newLiRef);
+    }
+
+    newHobbyBtnRef.addEventListener('click',addNewHobby);
+
+    // Add new li before 3rd li element in skills class
+    const new3rdLiRef = document.createElement('li');
+    new3rdLiRef.innerHTML = '<span>3. Sketching</span>';
+
+    ulRef.insertBefore(new3rdLiRef, liRef);
+
+    // Add underline to all li elements within skills class
+
+    const liElements = bodyRef.querySelectorAll('.skills li');
+
+    liElements.forEach(liRef => {
+        liRef.style.textDecoration = 'underline';
+    })
+
+</script>
+</html>
