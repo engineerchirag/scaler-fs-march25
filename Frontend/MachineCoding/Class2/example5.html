@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <meta charset = "UTF - 8">
+    <meta http-equiv = "X - UA - Compatible" content = "IE = edge">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <title>Document</title>
+    <style>
+        #productList {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 50px;
+            margin: 30px;
+            border: 1px solid red;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .add-to-cart {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id = "productList">
+        <div class = "product">
+            <h3>Product 1</h3>
+            <p>Price: $10</p>
+            <button class = "add-to-cart">Add to Cart</button>
+        </div>
+        <div class = "product">
+            <h3>Product 2</h3>
+            <p>Price: $20</p>
+            <button class = "add-to-cart">Add to Cart</button>
+        </div>
+        <div class = "product">
+            <h3>Product 3</h3>
+            <p>Price: $30</p>
+            <button class = "add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+    
+
+    <script>
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const productListRef = document.querySelector('#productList');
+        const productRef = document.querySelectorAll('.product');
+
+        // addToCartButtons.forEach(button => {
+        //     button.addEventListener('click', function(event) {
+        //         console.log('Hi');
+        //     });
+        // });
+
+        // productRef.forEach(product => {
+        //     product.addEventListener('click', function(event) {
+        //         console.log('Product clicked');
+        //     });
+        // });
+
+        productListRef.addEventListener('click', function(event) {
+            if (event.target.classList.contains('add-to-cart')) {
+                console.log(event.target.parentElement.querySelector('h3').innerText);
+                console.log(event.target.parentElement.querySelector('p').innerText);
+            } 
+        });
+
+        // document.addEventListener('click', function(event) {
+        //     console.log('Document clicked');
+        // });
+
+        
+
+    </script>
+</body>
+
+</html>

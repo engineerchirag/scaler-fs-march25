@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select>
+        <option value="0">All</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+
+    <ul>
+        <li data-option="1">Item 1 (Option1)</li>
+        <li data-option="1">Item 2 (Option1)</li>
+        <li data-option="3">Item 3 (Option3)</li>
+        <li data-option="2">Item 4 (Option2)</li>
+    </ul>
+
+    <script>
+        const selectRef = document.querySelector('select');
+        const lisRef = document.querySelectorAll('ul li');
+
+        selectRef.addEventListener('change', function(event){
+            console.log(event.target.value);
+
+            lisRef.forEach(liRef => {
+                const optionValue = liRef.getAttribute('data-option');
+                if (optionValue == event.target.value || event.target.value == 0) {
+                    liRef.style.display = 'block';
+                } else {
+                    liRef.style.display = 'none';
+                }
+            })
+
+        });
+
+        
+
+        
+    </script>
+</body>
+</html>
