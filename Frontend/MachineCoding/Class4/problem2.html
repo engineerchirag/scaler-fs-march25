@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Memory Leaks</h1>
+    <script>
+        // 1. Avoid global space
+
+        "use strict";
+        let b = 15;
+
+        function sum(a, b) {
+            let total = a + b;
+            return total;
+        }
+
+        sum(1,2);
+
+        // 2. Handling closures
+
+        
+        let replaceThing = function () {
+            console.log("something");
+            let originalThing = '';
+            let unused = function () {
+                if (originalThing) {
+                    console.log("hi");
+                };
+            }
+            let thething = {
+                longStr: new Array(10000000),
+                someMethod: function () {
+                    console.log("Bi");
+                    unused();
+                }
+            }
+        }
+        setInterval(() => {
+            replaceThing()
+        }, 1000);
+
+        // 3. Remove nodes & reset values
+
+        let a = document.querySelector("h1");
+        let p = document.querySelector("p");
+        console.log(a);
+        // please remove the node from the tree  
+        a.remove();
+        // to remove it from memory -> 
+        a = null;
+        console.log("a", a);
+    </script>
+</body>
+</html>

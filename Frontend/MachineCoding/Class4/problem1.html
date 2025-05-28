@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .chat-wrapper {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 5px;
+        }
+        .chat-replies {
+            margin: 15px 30px;
+
+        }
+        .chat-new-reply {
+            margin: 5px 30px;
+            display: none;
+        }
+        .chat-new-reply textarea {
+            width: 100%;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-old">
+        <h1>Static Nested Comment</h1>
+        <div class="chat-wrapper">
+            <div class="chat-message">Good Morning Everyone, How are you?</div>
+            <div class="chat-action"><button>Reply</button></div>
+            <div class="chat-new-reply"><textarea>Enter reply...</textarea><button>Add</button></div>
+            <div class="chat-replies">
+                <div class="chat-wrapper">
+                    <div class="chat-message">I'm fine</div>
+                    <div class="chat-action"><button>Reply</button></div>
+                    <div class="chat-new-reply"><textarea>Enter reply...</textarea></div>
+                    <div class="chat-replies">
+                        <div class="chat-wrapper">
+                            <div class="chat-message">That's good</div>
+                            <div class="chat-action"><button>Reply</button></div>
+                            <div class="chat-new-reply"><textarea>Enter reply...</textarea><button>Add</button></div>
+                            <div class="chat-replies"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-wrapper">
+                    <div class="chat-message">I'm good</div>
+                    <div class="chat-action"><button>Reply</button></div>
+                    <div class="chat-new-reply"><textarea>Enter reply...</textarea><button>Add</button></div>
+                    <div class="chat-replies"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h1>Dynamic Nested Comments</h1>
+        
+    </div>
+
+    <script>
+        function addNewReply(parentRef, msg) {
+            const newChatWrapperRef = document.createElement('div');
+            newChatWrapperRef.classList.add('chat-wrapper');
+            newChatWrapperRef.innerHTML = `
+                <div class="chat-message">${msg}</div>
+                <div class="chat-action"><button class='reply'>Reply</button></div>
+                <div class="chat-new-reply"><textarea placeholder="Enter reply"></textarea><button class='add'>Add</button></div>
+                <div class="chat-replies"></div>
+            `
+            parentRef.appendChild(newChatWrapperRef);
+
+            newChatWrapperRef.querySelector('.reply').addEventListener('click', function(e) {
+                e.target.closest('.chat-wrapper').querySelector('.chat-new-reply').style.display = 'block';
+            });
+
+            newChatWrapperRef.querySelector('.add').addEventListener('click', function(e) {
+                const newMsg = e.target.closest('.chat-wrapper').querySelector('.chat-new-reply textarea').value;
+                e.target.closest('.chat-wrapper').querySelector('.chat-new-reply').style.display = 'none';
+                const chatRepliesRef = newChatWrapperRef.querySelector('.chat-replies');
+                addNewReply(chatRepliesRef, newMsg);
+                e.target.closest('.chat-wrapper').querySelector('.chat-new-reply textarea').value = '';
+            });
+        }
+
+        const containerRef = document.querySelector('.container');
+        addNewReply(containerRef, 'Good Morning Everyone, How are you?');
+    </script>
+</body>
+</html>
