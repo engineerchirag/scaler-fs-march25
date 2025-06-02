@@ -1,0 +1,97 @@
+<!-- Typeahead / AutoComplete -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .suggestion-list {
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-list .item {
+            border-top: 1px solid #dfdfdf;
+            padding: 10px 0;
+        }
+
+        .suggestion-list .item:nth-child(1) {
+            border: none;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" placeholder="Seach by Country Name..." />
+        <div class="suggestion-list">
+        </div>
+    </div>
+
+    <script>
+        const inputRef = document.querySelector('input');
+        const suggestionListRef = document.querySelector('.suggestion-list');
+        const debounceSearchFn =  debounce(getCountriesNames, 500);
+
+        inputRef.addEventListener('keyup', function(e) {
+            let text = e.target.value;
+            if (text) {
+                debounceSearchFn(text);
+            } else {
+                renderSuggestions([]);
+            }
+        });
+
+        function getCountriesNames(text) {
+            fetch(`https://restcountries.com/v3.1/name/${text}`)
+                .then(res => res.json())
+                .then(data => {
+                    renderSuggestions(data);
+                });
+        }
+
+        function renderSuggestions(suggestions) {
+            suggestionListRef.innerHTML = '';
+            suggestionListRef.style.display = suggestions.length ? 'flex' : 'none';
+            const suggestionFragmentRef = document.createDocumentFragment();
+            suggestions.forEach(suggestion => {
+                const newItem = createNewSuggestionItem(suggestion.name.common);
+                suggestionFragmentRef.appendChild(newItem);
+            });
+            suggestionListRef.appendChild(suggestionFragmentRef);
+        }
+
+        function createNewSuggestionItem(text) {
+            const itemRef = document.createElement('div');
+            itemRef.classList.add('item');
+            itemRef.innerText = text;
+            return itemRef;
+        }
+
+        function debounce(fn, delay=1000) {
+            let timerId;
+            return function(...args) {
+                if (timerId) {
+                    console.log('Clear Timeout');
+                    clearTimeout(timerId);
+                } 
+                timerId = setTimeout(function() {
+                    fn(...args);
+                }, delay);
+            }
+        }
+    </script>
+</body>
+</html>

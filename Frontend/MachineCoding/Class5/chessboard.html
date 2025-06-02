@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .board {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+        }
+
+        .row {
+            display: flex;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ccc;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            color: aqua;
+        }
+        .row:nth-of-type(odd) .box:nth-of-type(even) {
+            background-color: black;
+        }
+
+        .row:nth-of-type(even) .box:nth-of-type(odd) {
+            background-color: black;
+        }
+
+        .bishop {
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="board"></div>
+
+    <script>
+        const boardRef = document.querySelector('.board');
+
+        const boardFragmentRef = document.createDocumentFragment();
+        for (let i = 0; i < 8; i++) {
+            let rowRef = document.createElement('div');
+            rowRef.classList.add('row');
+
+            for (let j = 0; j < 8; j++) {
+                let boxRef = document.createElement('div');
+                boxRef.classList.add('box');
+                boxRef.innerText = `${i}, ${j}`;
+                if (i ===3 && j===5) {
+                    boxRef.innerHTML = `
+                        <div class="bishop"></div>
+                    `;
+                }
+                rowRef.appendChild(boxRef);
+            }
+            boardFragmentRef.appendChild(rowRef);
+        }
+        
+        boardRef.appendChild(boardFragmentRef);
+
+
+        function moveTopLeft(currentR, currentC) {
+            const maxMove = Math.min(currentR, currentC);
+            return [currentR - maxMove, currentC - maxMove];
+        }
+
+        function moveTopRight(currentR, currentC) {
+            const maxMove = Math.min( currentR, 7 - currentC);
+            return [currentR - maxMove, currentC + maxMove];
+        }
+
+        function moveBottomTop(currentX, currentY) {
+            return //?;
+        }
+
+        function moveBottomRight(currentX, currentY) {
+            return //?;
+        }
+
+    </script>
+</body>
+</html>
