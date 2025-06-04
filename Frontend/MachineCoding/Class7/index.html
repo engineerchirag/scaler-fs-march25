@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             display: flex;
             flex-direction: column;
@@ -39,7 +41,7 @@
             background-color: pink;
         }
 
-        [data-priority="p1"]{
+        [data-priority="p1"] {
             background-color: skyblue;
         }
 
@@ -51,7 +53,7 @@
             background-color: aquamarine;
         }
 
-        header .actions { 
+        header .actions {
             display: flex;
             background-color: white;
             color: black;
@@ -104,9 +106,9 @@
             background-color: aliceblue;
             padding: 5px;
         }
-
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -122,39 +124,105 @@
             </div>
         </header>
         <section>
-            <div class="tasks">
-                <div class="task">
-                    <div class="task-priority" data-priority="p0"></div>
-                    <div class="task-id">sdsdas</div>
-                    <div class="task-title">First Task</div>
-                </div>
-                <div class="task">
-                    <div class="task-priority" data-priority="p2"></div>
-                    <div class="task-id">sdsdas</div>
-                    <div class="task-title">Second Task</div>
-                </div>
-                <div class="task">
-                    <div class="task-priority" data-priority="p1"></div>
-                    <div class="task-id">sdsdas</div>
-                    <div class="task-title">Third Task</div>
-                </div>
-                <div class="task">
-                    <div class="task-priority" data-priority="p1"></div>
-                    <div class="task-id">sdsdas</div>
-                    <div class="task-title">Third Task</div>
-                </div>
-                <div class="task">
-                    <div class="task-priority" data-priority="p3"></div>
-                    <div class="task-id">sdsdas</div>
-                    <div class="task-title">Third Task</div>
-                </div>
-                <div class="task">
-                    <div class="task-priority" data-priority="p0"></div>
-                    <div class="task-id">sdsdas</div>
-                    <div class="task-title">Third Task</div>
-                </div>
-            </div>
+            <div class="tasks"></div>
+            <button onclick="addNewTask()">Add</button>
         </section>
     </div>
+
+    <script>
+        const tasks = [{
+            id: 1,
+            title: 'Task 1',
+            priority: 'p0'
+        }, {
+            id: 2,
+            title: 'Task 2',
+            priority: 'p3'
+        }, {
+            id: 3,
+            title: 'Task 3',
+            priority: 'p0'
+        }, {
+            id: 4,
+            title: 'Task 4',
+            priority: 'p2'
+        }, {
+            id: 5,
+            title: 'Task 5',
+            priority: 'p2'
+        }, {
+            id: 6,
+            title: 'Task 6',
+            priority: 'p1'
+        }, {
+            id: 7,
+            title: 'Task 7',
+            priority: 'p0'
+        }, {
+            id: 8,
+            title: 'Task 8',
+            priority: 'p1'
+        }, {
+            id: 9,
+            title: 'Task 9',
+            priority: 'p3'
+        }];
+
+        const tasksRef = document.querySelector('.tasks');
+        const priorityFilterRef = document.querySelector('.priorities');
+
+
+        function createTask(task, parentRef) {
+            const { id, title, priority } = task;
+            const newTaskRef = document.createElement('div');
+            newTaskRef.classList.add('task');
+            newTaskRef.innerHTML = `
+                <div class="task-priority" data-priority="${priority}"></div>
+                <div class="task-id">${id}</div>
+                <div class="task-title">${title}</div>
+            `;
+            parentRef.appendChild(newTaskRef);
+        }
+
+        function render(tasks) {
+            tasksRef.innerHTML = '';
+            const tasksFragmentRef = document.createDocumentFragment();
+
+            tasks.forEach(task => {
+                createTask(task, tasksFragmentRef);
+            });
+
+            tasksRef.appendChild(tasksFragmentRef);
+        }
+
+        render(tasks);
+
+        function addNewTask() {
+            const newTask = { 
+                id: Math.random(), 
+                title: `Title ${Math.random()}`, 
+                priority: 'p0' 
+            };
+
+            tasks.push(newTask);
+            createTask(newTask, tasksRef);
+        }
+
+        priorityFilterRef.addEventListener('click', function(e) {
+            if (e.target.classList.contains('priority')) {
+                const taskPriority = e.target.getAttribute('data-priority');
+                console.log(taskPriority);
+                const filteredTasks = filterTasks(taskPriority);
+                render(filteredTasks);
+            }
+        });
+
+        function filterTasks(taskPriority) {
+            return tasks.filter(task => {
+                return task.priority === taskPriority;
+            });
+        }
+    </script>
 </body>
+
 </html>
