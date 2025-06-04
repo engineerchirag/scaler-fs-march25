@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            background-color: black;
+            height: 60px;
+            align-items: center;
+        }
+
+        header .priorities {
+            display: flex;
+            background-color: #fbfbfb;
+            padding: 10px;
+            align-items: center;
+            column-gap: 10px;
+            margin: 0 50px;
+        }
+
+        header .priorities .priority {
+            width: 50px;
+            height: 20px;
+        }
+
+        [data-priority="p0"] {
+            background-color: pink;
+        }
+
+        [data-priority="p1"]{
+            background-color: skyblue;
+        }
+
+        [data-priority="p2"] {
+            background-color: purple;
+        }
+
+        [data-priority="p3"] {
+            background-color: aquamarine;
+        }
+
+        header .actions { 
+            display: flex;
+            background-color: white;
+            color: black;
+        }
+
+        header .actions .action {
+            width: 50px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header .actions .action:hover {
+            cursor: pointer;
+            background-color: antiquewhite;
+        }
+
+        .tasks {
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: 15px;
+            column-gap: 15px;
+        }
+
+        .tasks .task {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tasks .task .task-priority {
+            height: 10px;
+        }
+
+        .tasks .task .task-id {
+            height: 15px;
+            font-size: 12px;
+            background-color: black;
+            color: white;
+            padding-left: 5px;
+        }
+
+        .tasks .task .task-title {
+            display: flex;
+            flex: 1;
+            background-color: aliceblue;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="priorities">
+                <div class="priority" data-priority="p0"></div>
+                <div class="priority" data-priority="p1"></div>
+                <div class="priority" data-priority="p2"></div>
+                <div class="priority" data-priority="p3"></div>
+            </div>
+            <div class="actions">
+                <div class="action add">+</div>
+                <div class="action unblock">x</div>
+            </div>
+        </header>
+        <section>
+            <div class="tasks">
+                <div class="task">
+                    <div class="task-priority" data-priority="p0"></div>
+                    <div class="task-id">sdsdas</div>
+                    <div class="task-title">First Task</div>
+                </div>
+                <div class="task">
+                    <div class="task-priority" data-priority="p2"></div>
+                    <div class="task-id">sdsdas</div>
+                    <div class="task-title">Second Task</div>
+                </div>
+                <div class="task">
+                    <div class="task-priority" data-priority="p1"></div>
+                    <div class="task-id">sdsdas</div>
+                    <div class="task-title">Third Task</div>
+                </div>
+                <div class="task">
+                    <div class="task-priority" data-priority="p1"></div>
+                    <div class="task-id">sdsdas</div>
+                    <div class="task-title">Third Task</div>
+                </div>
+                <div class="task">
+                    <div class="task-priority" data-priority="p3"></div>
+                    <div class="task-id">sdsdas</div>
+                    <div class="task-title">Third Task</div>
+                </div>
+                <div class="task">
+                    <div class="task-priority" data-priority="p0"></div>
+                    <div class="task-id">sdsdas</div>
+                    <div class="task-title">Third Task</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
