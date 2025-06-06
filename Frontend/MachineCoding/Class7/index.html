@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             margin: 0;
@@ -86,6 +87,7 @@
             border: 1px solid #ccc;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .tasks .task .task-priority {
@@ -106,6 +108,62 @@
             background-color: aliceblue;
             padding: 5px;
         }
+
+        .tasks .task .task-title textarea {
+            border: none;
+            background: transparent;
+        }
+
+        .tasks .task .task-remove {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            cursor: pointer;
+        }
+
+        .modal {
+            width: 50vw;
+            height: 300px;
+            border: 1px solid #ccc;
+            box-shadow: #ccc 2px 2px 2px;
+            position: fixed;
+            top: 200px;
+            display: flex;
+            transform: translateX(50%);
+        }
+
+        .modal .task-description {
+            display: flex;
+            flex: 1;
+        }
+
+        .modal .task-description textarea{
+            width: 100%;
+            padding: 15px;
+        }
+
+        .modal .task-priorties {
+            width: 80px;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            row-gap: 15px;
+        }
+
+        .modal .task-priorties .priority {
+            height: 40px;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .modal .task-priorties .priority.selected {
+            border: 2px solid white;
+        }
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
@@ -119,57 +177,88 @@
                 <div class="priority" data-priority="p3"></div>
             </div>
             <div class="actions">
-                <div class="action add">+</div>
+                <div class="action add" onclick="toggleTaskModal()">+</div>
                 <div class="action unblock">x</div>
             </div>
         </header>
         <section>
             <div class="tasks"></div>
-            <button onclick="addNewTask()">Add</button>
         </section>
+        <div class="modal hide">
+            <div class="task-description">
+                <textarea placeholder="Enter new task title..."></textarea>
+            </div>
+            <div class="task-priorties">
+                <div class="priority selected" data-priority="p0"></div>
+                <div class="priority" data-priority="p1"></div>
+                <div class="priority" data-priority="p2"></div>
+                <div class="priority" data-priority="p3"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const tasks = [{
-            id: 1,
-            title: 'Task 1',
-            priority: 'p0'
-        }, {
-            id: 2,
-            title: 'Task 2',
-            priority: 'p3'
-        }, {
-            id: 3,
-            title: 'Task 3',
-            priority: 'p0'
-        }, {
-            id: 4,
-            title: 'Task 4',
-            priority: 'p2'
-        }, {
-            id: 5,
-            title: 'Task 5',
-            priority: 'p2'
-        }, {
-            id: 6,
-            title: 'Task 6',
-            priority: 'p1'
-        }, {
-            id: 7,
-            title: 'Task 7',
-            priority: 'p0'
-        }, {
-            id: 8,
-            title: 'Task 8',
-            priority: 'p1'
-        }, {
-            id: 9,
-            title: 'Task 9',
-            priority: 'p3'
-        }];
+        let tasks = [];
+        function initTasks() {
+            const existingTasks = localStorage.getItem('tasks');
+            if (existingTasks) {
+                tasks = JSON.parse(existingTasks);
+            } else {
+                tasks = [{
+                    id: 1,
+                    title: 'Task 1',
+                    priority: 'p0'
+                }, {
+                    id: 2,
+                    title: 'Task 2',
+                    priority: 'p3'
+                }, {
+                    id: 3,
+                    title: 'Task 3',
+                    priority: 'p0'
+                }, {
+                    id: 4,
+                    title: 'Task 4',
+                    priority: 'p2'
+                }, {
+                    id: 5,
+                    title: 'Task 5',
+                    priority: 'p2'
+                }, {
+                    id: 6,
+                    title: 'Task 6',
+                    priority: 'p1'
+                }, {
+                    id: 7,
+                    title: 'Task 7',
+                    priority: 'p0'
+                }, {
+                    id: 8,
+                    title: 'Task 8',
+                    priority: 'p1'
+                }, {
+                    id: 9,
+                    title: 'Task 9',
+                    priority: 'p3'
+                }];
+
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            }   
+        }
+        initTasks();
+
+        const newTask = {
+            id: '',
+            title: '',
+            priority: 'p0' 
+        };
 
         const tasksRef = document.querySelector('.tasks');
         const priorityFilterRef = document.querySelector('.priorities');
+        const taskModalRef = document.querySelector('.modal');
+        const modalPriorityContainerRef = document.querySelector('.task-priorties');
+        const newTaskTextareaRef = document.querySelector('.modal .task-description textarea');
 
 
         function createTask(task, parentRef) {
@@ -179,9 +268,18 @@
             newTaskRef.innerHTML = `
                 <div class="task-priority" data-priority="${priority}"></div>
                 <div class="task-id">${id}</div>
-                <div class="task-title">${title}</div>
+                <div class="task-title"><textarea disabled>${title}</textarea></div>
+                <div class="task-remove"><i class="fa-solid fa-trash"></i></div>
             `;
             parentRef.appendChild(newTaskRef);
+
+            newTaskRef.querySelector('.fa-trash').addEventListener('click', function(e) {
+                const taskId = e.target.closest('.task').querySelector('.task-id').innerText;
+                tasks = tasks.filter(task => task.id != taskId);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                render(tasks);
+            });
+
         }
 
         function render(tasks) {
@@ -197,14 +295,15 @@
 
         render(tasks);
 
-        function addNewTask() {
+        function addNewTask({ title, priority}) {
             const newTask = { 
                 id: Math.random(), 
-                title: `Title ${Math.random()}`, 
-                priority: 'p0' 
+                title, 
+                priority, 
             };
 
             tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
             createTask(newTask, tasksRef);
         }
 
@@ -221,6 +320,42 @@
             return tasks.filter(task => {
                 return task.priority === taskPriority;
             });
+        }
+
+        function toggleTaskModal() {
+            const isHidden = taskModalRef.classList.contains('hide');
+            if (isHidden) {
+                taskModalRef.classList.remove('hide');
+            } else {
+                taskModalRef.classList.add('hide');
+            }
+        }
+
+        modalPriorityContainerRef.addEventListener('click', function(e) {
+            if (e.target.classList.contains('priority')) {
+                modalPriorityContainerRef.querySelectorAll('.priority').forEach(priorityRef => {
+                    priorityRef.classList.remove('selected');
+                });
+            }   
+            e.target.classList.add('selected');
+
+            newTask.priority = e.target.getAttribute('data-priority');
+        });
+
+        newTaskTextareaRef.addEventListener('keydown', function(e) {
+            newTask.title = e.target.value;
+
+            if (e.key == 'Enter' && !!newTask.title.trim()) {
+                addNewTask(newTask);
+                toggleTaskModal();
+                resetNewTask();
+            }
+        });
+
+        function resetNewTask() {
+            newTask.id = '';
+            newTask.title = '';
+            newTask.priority = 'p0';
         }
     </script>
 </body>
