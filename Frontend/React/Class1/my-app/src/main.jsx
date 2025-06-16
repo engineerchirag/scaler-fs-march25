@@ -12,18 +12,33 @@ function Heading (props) {
     <h1>Hello World! {title}</h1>
   )
 }
+const ListContent1 = () => {
+  return (
+    <>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </>
+  )
+}
+
+const ListContent2 = () => {
+  return (
+    <>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+    </>
+  );
+}
 
 const List = () => {
   return (
     <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-      </ul>
+        <ListContent1 />
+        <ListContent2 />
+    </ul>
   )
 }
 
