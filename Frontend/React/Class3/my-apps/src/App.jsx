@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Counter from './components/Counter';
 import UserCard from './components/UserCard';
+import ProductList from './components/ProductList';
+import Todo from './components/Todo';
 
 function App() {
   
@@ -11,6 +13,8 @@ function App() {
   return (
     <>
       <h1>Apps</h1>
+      <Todo />
+      <ProductList />
       <UserCard />
       <Counter intialCount={1} />
     </>

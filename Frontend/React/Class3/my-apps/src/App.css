@@ -56,3 +56,55 @@
   display: flex;
   width: 150px;
 }
+
+.product-list {
+  width: 400px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.product-list li {
+  list-style: none;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.product-list li button {
+  font-size: 12px;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo ul {
+  width: 400px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.todo ul li {
+  list-style: none;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.todo ul li button {
+  font-size: 12px;
+}
+
+.todo input {
+  display: flex;
+  flex-grow: 1;
+  height: 24px;
+  padding: 3px 10px;
+}
+
+

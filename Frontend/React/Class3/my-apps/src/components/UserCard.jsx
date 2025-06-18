@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const UserCard = () => {
     let userData = {
         name: { first: "Jennie", last: "Nichols" },
@@ -6,6 +8,8 @@ const UserCard = () => {
         location: { city: "Billings", country: "United States" },
         picture: { large: "https://randomuser.me/api/portraits/women/75.jpg" }
     };
+
+    const [isVisible, setVisibility] = useState(false);
     return (
         <div>
             <h2>User Card</h2>
@@ -16,8 +20,7 @@ const UserCard = () => {
                 </div>
                 <div className="row">
                     <div className="col">Email</div>
-                    <div className="col"> - </div> 
-                    {/* {userData.email} */}
+                    <div className="col">{isVisible ? userData.email : '*******'} </div> 
                 </div>
                 <div className="row">
                     <div className="col">Age</div>
@@ -32,7 +35,7 @@ const UserCard = () => {
                     <div className="col"><img src={userData.picture.large} /></div>
                 </div>
                 <div>
-                    <button>Show Sensitive Info</button>
+                    <button onClick={() => setVisibility(!isVisible)}>Toggle Sensitive Info</button>
                 </div>
             </div>
         </div>
