@@ -6,13 +6,17 @@ const Counter = ({ intialCount }) => {
     const handleDecrease = () => {
         // count--;
         // console.log(count);
+        console.log('previous > ', state);
         setState(state - 1);
+        console.log('after > ', state);
     }
 
     const handleIncrease = () => {
         // count++;
         // console.log(count);
+        console.log('previous > ', state);
         setState(state + 1);
+        console.log('after > ', state);
     }
 
     return (
