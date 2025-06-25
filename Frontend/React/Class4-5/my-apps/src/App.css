@@ -108,3 +108,19 @@
 }
 
 
+header {
+  height: 60px;
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header ul {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+header ul li {
+  color: black;
