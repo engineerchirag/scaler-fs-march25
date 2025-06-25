@@ -55,6 +55,12 @@
   justify-content: flex-end;
 }
 
+.movie-list-page {
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+}
+
 .movie-list-page h2 {
   padding: 10px 15px;
 }
@@ -76,5 +82,16 @@
 }
 
 .movie h4 {
+  padding: 5px 10px;
+}
+
+.pagination {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin: 15px;
+}
+
+.pagination button {
   padding: 5px 10px;
 }
